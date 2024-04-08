@@ -19,12 +19,18 @@ export class TokenHelper implements ITokenService{
             }
         }
         try {
-            const token = jwt.sign(userObject, secret)
+            const token = jwt.sign(userObject, secret, {expiresIn: "1h"})
             return token;
         } catch (error) {
             console.log("Hubo un error al generar token\n", error);
-            return ""
+            return "Token invalido o expirado"
         }
     }
 
+    async  verifyToken(token: string): Promise<boolean | null> {
+        if(jwt.verify(token, secret)){
+            return true
+        }
+        return false
+    }
 }
