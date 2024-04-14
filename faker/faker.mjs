@@ -35,8 +35,8 @@ const connection_options = {
 
 const topic = envs["FAKER_TOPIC"] ?? "PUSH"
 const uri = `${envs["FAKER_PROTOCOL"].toLowerCase() ?? "mqtt"}://${envs["FAKER_HOST"]}/`
-
 const client = mqtt.connect(uri, connection_options)
+const deviceID = process.env["FAKER_DEVICE_ID"] ?? "dummy_id"
 
 client.on('connect', () => {
     console.log("Conexión establecida con el broker.")
@@ -46,6 +46,7 @@ client.on('connect', () => {
         console.log("Intentado envíar mensaje al tema: " + topic)
 
         const request = {
+            device: deviceID,
             temperature: parseFloat(randomFrom(temperature_range)),
             ph: parseFloat(randomFrom(ph_range)),
             humidity: parseFloat(randomFrom(humidity_range)),
