@@ -1,6 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import { userRouter } from './user/infrastructure/UserRoutes'
+import { userRouter } from './users/infrastructure/UserRoutes'
 import { stationRouter } from './stations/infrastructure/StationRoutes';
 
 const cors = require('cors');
