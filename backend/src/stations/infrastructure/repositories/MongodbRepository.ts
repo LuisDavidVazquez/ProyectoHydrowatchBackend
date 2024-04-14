@@ -5,15 +5,15 @@ import StationModel from "../models/StationModel";
 
 export class MongodbRepository implements StationRepository {
 
-    async createStation(user: Station): Promise<Station | null> {
+    async createStation(station: Station): Promise<Station | null> {
         try {
             connectionMongodb()
             const newStation = new StationModel(
                 {
-                    name: user.name,
-                    plants: user.plants,
-                    seedtime: user.seedtime,
-                    description: user.description
+                    name: station.name,
+                    plants: station.plants,
+                    seedtime: station.seedtime,
+                    description: station.description
                 }
             )
             const res = await newStation.save()
@@ -24,26 +24,26 @@ export class MongodbRepository implements StationRepository {
         }
     }
 
-    // async getUserById(id: string): Promise<User | null> {
-    //     try {
-    //         connectionMongodb()
-    //         const res = await UserModel.findById(id);
-    //         return res
-    //     } catch (error) {
-    //         console.log("Error al encontrar usuario\n", error)
-    //         return null
-    //     }
-    // }
+    async getStations(): Promise<Station[] | null> {
+        try {
+            connectionMongodb()
+            const res = await StationModel.find();
+            return res
+        } catch (error) {
+            console.log("Error al encontrar las estaciones\n", error)
+            return null
+        }
+    }
 
-    // async logInUser(email: string, password: string): Promise<User | null> {
-    //     try {
-    //         connectionMongodb()
-    //         const res = await UserModel.findOne({email : email})
-    //         return res
-    //     } catch (error) {
-    //         console.log("Error al encontrar usuario\n", error)
-    //         return null
-    //     }
-    // }
+    async getStationById(id : string): Promise<Station | null> {
+        try {
+            connectionMongodb()
+            const res = await StationModel.findById(id)
+            return res
+        } catch (error) {
+            console.log("Error al encontrar estacion\n", error)
+            return null
+        }
+    }
 
 }

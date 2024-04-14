@@ -1,20 +1,15 @@
 import { Request, Response } from "express";
-import { CreateStationUseCase } from "../../application/CreateStationUseCase";
+import { GetStationByIdUseCase } from "../../application/GetStationByIdUseCase";
 
-export class CreateStationController {
+export class GetStationByIdController {
     constructor(
-        readonly createStationUseCase: CreateStationUseCase
+        readonly getStationByIdUseCase: GetStationByIdUseCase
     ) { }
 
     async run(req: Request, res: Response) {
-        const data = req.body;
+        const id = req.params.id
         try {
-            const station = await this.createStationUseCase.run(
-                data.name,
-                data.plants,
-                data.seedtime,
-                data.description
-            )
+            const station = await this.getStationByIdUseCase.run(id)
             if (station) {
                 res.status(200).send({
                     status: "succes",
@@ -27,16 +22,17 @@ export class CreateStationController {
                 })
             } else {
                 res.status(204).send({
-                    status : "erros",
-                    message: "No se pudo crear la estacion"
+                    status: "error",
+                    message: "No se pudo obtener la estacion"
                 })
             }
         } catch (error) {
             res.status(204).send({
-                status : "error",
+                status: "error",
                 message: "Ah ocurrido un error inesperado",
                 msn: error,
             })
         }
     }
+    
 }
