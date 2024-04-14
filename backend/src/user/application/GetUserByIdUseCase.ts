@@ -8,10 +8,11 @@ export class GetUserByIdUseCase {
 
     async run( id : string) : Promise <User | null> {
         try {
-            const userFound = this.userRepository.getUserById(id);
+            const userFound = await this.userRepository.getUserById(id);
             console.log(userFound);            
             return userFound
         } catch (error) {
+            console.log(error);
             return null
         }
     }

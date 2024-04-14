@@ -1,0 +1,54 @@
+### Create User
+POST http://localhost:4000/users/
+Content-Type: application/json
+
+{
+    "email" : "eddie@gmail.com",
+    "password" : "12345678",
+    "data" : {
+        "name" : "Eddie",
+        "lastname" : "Toledo",
+        "role" : "Administrador"
+    }
+}
+### Get User by id
+GET http://localhost:4000/users/661b2599b31a9b656a20a480
+
+### Log In by Email
+POST http://localhost:4000/users/login
+Content-Type: application/json
+
+{
+    "email" : "eddie@gmail.com",
+    "password" : "12345678"
+}
+
+
+################################################################
+
+
+### Create Station
+POST http://localhost:4000/stations
+Content-Type: application/json
+
+{
+    "name" : "Estacion 1",
+    "plants": [
+        {
+            "name": "Lechuga",
+            "amount": 5
+        },
+        {
+            "name" : "Tomate",
+            "amount" : 5
+        }
+    ],
+    "seedtime" : "13/04/2024",
+    "description" : "Pruebita 1"
+}
+
+### Get Stations
+GET http://localhost:4000/stations
+
+### Get Station by id
+GET http://localhost:4000/stations/661b2474b31a9b656a20a479

@@ -20,6 +20,7 @@ export class LogInUserUseCase {
             }
             return null
         } catch (error) {
+            console.log(error);
             return null
         }    
     }
