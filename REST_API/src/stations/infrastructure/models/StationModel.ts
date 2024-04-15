@@ -33,7 +33,7 @@ StationModel.init(
   },
   {
     sequelize: sequelize_connection,
-    tableName: "users",
+    tableName: "stations",
     timestamps: false,
   }
 );

@@ -30,7 +30,7 @@ UserModel.init(
     },
   },
   {
-    tableName: "stations",
+    tableName: "users",
     timestamps: false,
     sequelize: sequelize_connection,
   }
