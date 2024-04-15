@@ -10,11 +10,11 @@ const char *password = "12345678";
 const char *id_estacion = "1kj3bhbhabsdhasduahsd8as8dasjdad";
 
 //Datos de conexion Wifi
-const char *ssid = "INFINITUMA7DD";
-const char *pass = "ycXamrKNr4";
+const char *ssid = "";
+const char *pass = "";
 
 //Datos de conexion mqtt
-char *server = "3.94.0.20";
+char *server = "";
 const int mqttPort = 1883;
 char *subscribeTopic = "";
 char *publishTopic = "esp32.mqtt";
