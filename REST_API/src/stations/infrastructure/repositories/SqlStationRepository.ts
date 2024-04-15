@@ -34,16 +34,42 @@ export default class SqlStationRepository implements StationRepository {
       }
 
       return [stationFound, "Consulta exitosa."];
-
     } catch (error) {
       console.log("Ha ocurrido un error con tu petición.");
       console.error(error);
       return [null, "Ha ocurrido un error con tu petición."];
     }
-    throw new Error("Method not implemented.");
   }
 
-  async update(station: StationUpdate): Promise<[Station | null, string]> {
+  async update(
+    station: StationUpdate,
+    pk: string
+  ): Promise<[Station | null | undefined, string]> {
+    try {
+      const stationToEdit = await this.stationModel.findByPk(pk);
+      if (!stationToEdit) {
+        return [
+          undefined,
+          "No se pudo encontrar una estación con el ID proporcionado.",
+        ];
+      }
+
+      stationToEdit.set({
+        name: station.name === undefined ? stationToEdit.name : station.name,
+        description:
+          station.description === undefined
+            ? stationToEdit.description
+            : station.description,
+      });
+
+      const result = await stationToEdit.save();
+
+      return [result, "Estación actualizada con éxito."];
+    } catch (error) {
+      console.log("Ha ocurrido un error.");
+      console.error(error);
+      return [null, "No se pudo completar tu petición."];
+    }
     throw new Error("Method not implemented.");
   }
 
