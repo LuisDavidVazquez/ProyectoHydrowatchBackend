@@ -26,7 +26,20 @@ export default class SqlStationRepository implements StationRepository {
     }
   }
 
-  async getByPk(): Promise<[Station | null, string]> {
+  async getByPk(pk: string): Promise<[Station | null | undefined, string]> {
+    try {
+      const stationFound = await this.stationModel.findByPk(pk);
+      if (!stationFound) {
+        return [undefined, "No se ha encontrado una estación con el ID dado."];
+      }
+
+      return [stationFound, "Consulta exitosa."];
+
+    } catch (error) {
+      console.log("Ha ocurrido un error con tu petición.");
+      console.error(error);
+      return [null, "Ha ocurrido un error con tu petición."];
+    }
     throw new Error("Method not implemented.");
   }
 

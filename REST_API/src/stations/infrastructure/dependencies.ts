@@ -1,6 +1,8 @@
 import CreateUseCase from "../application/CreateUseCase";
+import GetByPkUseCase from "../application/GetByPkUseCase";
 import ListUseCase from "../application/ListUseCase";
 import CreateController from "./controllers/CreateController";
+import GetByPkController from "./controllers/GetByPkController";
 import ListController from "./controllers/ListController";
 import StationModel from "./models/StationModel";
 import UserModel from "./models/UserModel";
@@ -24,8 +26,10 @@ export const createUseCase = new CreateUseCase(
   uuidService,
   encryptService
 );
-export const listUseCase= new ListUseCase(stationRepository)
+export const listUseCase = new ListUseCase(stationRepository);
+export const getByPkUseCase = new GetByPkUseCase(stationRepository);
 
 /* CONTROLLERS */
 export const createController = new CreateController(createUseCase);
-export const listController = new ListController(listUseCase)
+export const listController = new ListController(listUseCase);
+export const getByPkController = new GetByPkController(getByPkUseCase);
