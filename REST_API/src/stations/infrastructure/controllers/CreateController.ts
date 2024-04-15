@@ -18,16 +18,23 @@ export default class CreateController {
 
     const response = await this.useCase.run(station_to_send, user_to_send);
 
-    if(response[0] === null){
-        return res.status(500).json({
-            msg: response[1],
-            data:response[0]
-        })
+    if (response[0] === null) {
+      return res.status(500).json({
+        msg: response[1],
+        data: response[0],
+      });
+    }
+
+    if (response[0] === undefined) {
+      return res.status(409).json({
+        msg: response[1],
+        data: null,
+      });
     }
 
     return res.status(201).json({
-        msg: response[1],
-        data:response[0]
-    })
+      msg: response[1],
+      data: response[0],
+    });
   }
 }

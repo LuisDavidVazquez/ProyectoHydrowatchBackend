@@ -76,13 +76,13 @@ export default class SqlStationRepository implements StationRepository {
   async create(
     station: StationRequest,
     user: UserRequest
-  ): Promise<[Station, string] | [null, string]> {
+  ): Promise<[Station | null | undefined, string]> {
     try {
       const foundStation = await this.stationModel.findByPk(station.id);
 
       if (foundStation) {
         console.log("La estación ya existe.");
-        return [null, "La estación ya existe."];
+        return [undefined, "La estación ya existe."];
       }
 
       const newUser = new this.userModel({

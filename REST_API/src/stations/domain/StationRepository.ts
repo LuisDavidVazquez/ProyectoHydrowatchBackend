@@ -7,7 +7,7 @@ export default interface StationRepository {
   create(
     station: StationRequest,
     user: UserRequest
-  ): Promise<[Station | null, string]>;
+  ): Promise<[Station | null | undefined, string]>;
   list(): Promise<[Array<Station> | null, string]>;
   getByPk(pk: string): Promise<[Station | null | undefined, string]>;
   update(station: StationUpdate, pk:string): Promise<[Station | null | undefined, string]>;
