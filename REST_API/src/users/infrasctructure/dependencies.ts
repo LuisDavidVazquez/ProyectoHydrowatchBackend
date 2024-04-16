@@ -1,7 +1,9 @@
 import AccessUseCase from "../application/AccessUseCase";
+import AuthUseCase from "../application/AuthUseCase";
 import GetByPkUseCase from "../application/GetByPkUseCase";
 import ListUseCase from "../application/ListUseCase";
 import AccessController from "./controllers/AccessController";
+import AuthController from "./controllers/AuthController";
 import GetByPkController from "./controllers/GetByPkController";
 import ListController from "./controllers/ListController";
 import UserModel from "./models/UserModel";
@@ -21,7 +23,9 @@ const accessUseCase = new AccessUseCase(
 );
 const listUseCase = new ListUseCase(sqlUserRepository);
 const getByPkUseCase = new GetByPkUseCase(sqlUserRepository);
+const authUseCase = new AuthUseCase(tokenService)
 
 export const accessController = new AccessController(accessUseCase);
 export const listController = new ListController(listUseCase);
 export const getByPkController = new GetByPkController(getByPkUseCase);
+export const authController = new AuthController(authUseCase)
