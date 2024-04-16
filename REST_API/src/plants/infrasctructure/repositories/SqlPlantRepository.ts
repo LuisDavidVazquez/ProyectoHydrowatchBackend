@@ -75,10 +75,7 @@ export class SqlPlantRespository implements PlantRepository {
     try {
       const plant = await PlantModel.findByPk(pk);
       if (plant === null) {
-        return [
-          null,
-          "El elemento que desea eliminar no existe.",
-        ];
+        return [null, "El elemento que desea eliminar no existe."];
       }
       await plant.destroy();
       return [undefined, "Se ha eliminado la planta de tu estación."];
@@ -93,6 +90,28 @@ export class SqlPlantRespository implements PlantRepository {
     plant: UpdateRequest,
     pk: string
   ): Promise<[Plant | null | undefined, string]> {
-    throw new Error("Method not implemented.");
+    try {
+      const plantToUpdate = await this.plantModel.findByPk(pk);
+      if (plantToUpdate === null) {
+        return [undefined, "La planta que desea actualizar no existe."];
+      }
+
+      plantToUpdate.set({
+        name: plant.name === undefined ? plantToUpdate.name : plant.name,
+        amount:
+          plant.amount === undefined ? plantToUpdate.amount : plant.amount,
+        seed_time:
+          plant.seed_time === undefined
+            ? plantToUpdate.seed_time
+            : plant.seed_time,
+      });
+
+      await plantToUpdate.save();
+      return [plantToUpdate, "Planta actualizada con éxito."];
+    } catch (error) {
+      console.log("No se pudo completar tu petición.");
+      console.error(error);
+      return [null, "No se pudo completar tu petición."];
+    }
   }
 }
