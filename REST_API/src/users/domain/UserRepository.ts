@@ -8,5 +8,5 @@ export default interface UserRepository {
   ): Promise<[User | null | undefined, string]>;
   list(): Promise<[User[] | null, string]>;
   getByPk(pk: string): Promise<[User | null | undefined, string]>;
-  update(user: UpdateRequest): Promise<[User]>;
+  update(user: UpdateRequest): Promise<[User | null | undefined, string]>;
 }

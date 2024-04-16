@@ -29,12 +29,37 @@ export default class SqlUserRepository implements UserRepository {
     }
   }
   async list(): Promise<[User[] | null, string]> {
-    throw new Error("Method not implemented.");
+    try {
+      const results = await UserModel.findAll();
+      return [results, "Consulta exitosa"];
+    } catch (error) {
+      console.log("Ha ocurrido un error durante el acceso.");
+      console.error(error);
+      return [null, "Ha ocurrido un error durante el acceso."];
+    }
   }
   async getByPk(pk: string): Promise<[User | null | undefined, string]> {
-    throw new Error("Method not implemented.");
+    try {
+      const result = await UserModel.findByPk(pk);
+      if (result === null) {
+        return [undefined, "El usuario con el ID proporcionado no existe."];
+      }
+      return[result, "Consulta exitosa."]
+    } catch (error) {
+      console.log("Ha ocurrido un error durante el acceso.");
+      console.error(error);
+      return [null, "Ha ocurrido un error durante el acceso."];
+    }
   }
-  async update(user: UpdateRequest): Promise<[User]> {
+  async update(
+    user: UpdateRequest
+  ): Promise<[User | null | undefined, string]> {
+    try {
+    } catch (error) {
+      console.log("Ha ocurrido un error durante el acceso.");
+      console.error(error);
+      return [null, "Ha ocurrido un error durante el acceso."];
+    }
     throw new Error("Method not implemented.");
   }
 }
