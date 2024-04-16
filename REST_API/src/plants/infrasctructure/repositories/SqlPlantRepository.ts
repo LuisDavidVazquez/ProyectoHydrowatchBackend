@@ -13,6 +13,7 @@ export class SqlPlantRespository implements PlantRepository {
     this.plantModel.sync();
     this.stationModel.sync();
   }
+
   async add(plant: CreateRequest): Promise<[Plant | null, string]> {
     try {
       const stationExistencie = await this.stationModel.count({
@@ -41,6 +42,7 @@ export class SqlPlantRespository implements PlantRepository {
       return [null, "Ha ocurrido un error en tu petición"];
     }
   }
+
   async list(pk: string): Promise<[Plant[] | null, string]> {
     try {
       const response = await this.plantModel.findAll({
@@ -53,12 +55,26 @@ export class SqlPlantRespository implements PlantRepository {
       return [null, "Ha ocurrido un error durante petición"];
     }
   }
+
   async getByPk(pk: string): Promise<[Plant | null | undefined, string]> {
-    throw new Error("Method not implemented.");
+    try {
+      const plant = await PlantModel.findByPk(pk);
+      if (plant === null) {
+        return [undefined, "No se ha encontrado una planta con el id dado."];
+      }
+
+      return [plant, "Consulta exitosa"];
+    } catch (error) {
+      console.log("Ha ocurrido un error durante la petición.");
+      console.error(error);
+      return [null, "No se pudo completar tu petición en este momento."];
+    }
   }
+
   async remove(pk: string): Promise<[null | undefined, string]> {
     throw new Error("Method not implemented.");
   }
+
   async update(
     plant: UpdateRequest,
     pk: string
