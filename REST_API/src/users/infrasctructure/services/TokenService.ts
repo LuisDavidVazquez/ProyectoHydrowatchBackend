@@ -35,6 +35,5 @@ export default class TokenService implements TokenInterface {
     } catch {
       return [false, null];
     }
-    throw new Error("Method not implemented.");
   }
 }

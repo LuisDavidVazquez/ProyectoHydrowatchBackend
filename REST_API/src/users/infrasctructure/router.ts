@@ -1,7 +1,8 @@
 import { Router } from "express";
+import { accessController } from "./dependencies";
 
 const userRoutes = Router();
 
-userRoutes.get("/", (req, res) => res.send("Hola desde user"));
+userRoutes.post("/access", accessController.run.bind(accessController));
 
 export default userRoutes;
