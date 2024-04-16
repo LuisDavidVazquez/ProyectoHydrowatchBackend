@@ -13,7 +13,7 @@ const sequelize_connection = new Sequelize(DATABASE, USERNAME, PASSWORD, {
   dialect: "mariadb",
   host: HOST,
   port: PORT,
-  logging: false
+  logging: true
 });
 
 

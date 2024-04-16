@@ -44,7 +44,7 @@ export default class SqlUserRepository implements UserRepository {
       if (result === null) {
         return [undefined, "El usuario con el ID proporcionado no existe."];
       }
-      return[result, "Consulta exitosa."]
+      return [result, "Consulta exitosa."];
     } catch (error) {
       console.log("Ha ocurrido un error durante el acceso.");
       console.error(error);
@@ -52,14 +52,26 @@ export default class SqlUserRepository implements UserRepository {
     }
   }
   async update(
-    user: UpdateRequest
+    user: UpdateRequest,
+    pk: string
   ): Promise<[User | null | undefined, string]> {
     try {
+      const userToUpdate = await this.model.findByPk(pk);
+      if (userToUpdate === null) {
+        return [undefined, "El usuario que desea modificar no existe."];
+      }
+      userToUpdate.set({
+        email: user.email === undefined ? userToUpdate.email : user.email,
+        password:
+          user.password === undefined ? userToUpdate.password : user.password,
+      });
+
+      await userToUpdate.save();
+      return [userToUpdate, "Usuario modificado con éxito."];
     } catch (error) {
       console.log("Ha ocurrido un error durante el acceso.");
       console.error(error);
       return [null, "Ha ocurrido un error durante el acceso."];
     }
-    throw new Error("Method not implemented.");
   }
 }
