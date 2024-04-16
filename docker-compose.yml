@@ -1,0 +1,28 @@
+version: "3"
+
+networks:
+  exposed:
+    driver: "bridge"
+
+services:
+  api-rest:
+    build:
+      context: ./REST_API
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+    env_file: ./REST_API/.env
+    networks:
+      - exposed
+    ports:
+      - "3030:3030"
+
+  # faker:
+  #   build:
+  #     context: ./faker
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - NODE_ENV=production
+  #   env_file: ./faker/.env
+  #   networks:
+  #     - exposed
