@@ -72,7 +72,21 @@ export class SqlPlantRespository implements PlantRepository {
   }
 
   async remove(pk: string): Promise<[null | undefined, string]> {
-    throw new Error("Method not implemented.");
+    try {
+      const plant = await PlantModel.findByPk(pk);
+      if (plant === null) {
+        return [
+          null,
+          "El elemento que desea eliminar no existe.",
+        ];
+      }
+      await plant.destroy();
+      return [undefined, "Se ha eliminado la planta de tu estación."];
+    } catch (error) {
+      console.log("No se pudo completar tu petición en este momento.");
+      console.error(error);
+      return [null, "No se pudo completar tu petición en este momento."];
+    }
   }
 
   async update(

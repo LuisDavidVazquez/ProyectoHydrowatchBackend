@@ -1,7 +1,9 @@
 import CreateUseCase from "../application/CreateUseCase";
+import DeleteUseCase from "../application/DeleteUseCase";
 import GetByPkUseCase from "../application/GetByPkUseCase";
 import ListUseCase from "../application/ListUseCase";
 import CreateController from "./controllers/CreateController";
+import DeleteController from "./controllers/DeleteController";
 import GetByPkController from "./controllers/GetByPkController";
 import ListController from "./controllers/ListController";
 import PlantModel from "./models/PlantModel";
@@ -19,7 +21,9 @@ export const uuidService = new UUIDService();
 export const createUseCase = new CreateUseCase(sqlPlantRepository, uuidService);
 export const listUseCase = new ListUseCase(sqlPlantRepository);
 export const getByPkUseCase = new GetByPkUseCase(sqlPlantRepository);
+export const deleteUseCase = new DeleteUseCase(sqlPlantRepository);
 
 export const createController = new CreateController(createUseCase);
 export const listController = new ListController(listUseCase);
 export const getByPkController = new GetByPkController(getByPkUseCase);
+export const deleteController = new DeleteController(deleteUseCase);
