@@ -41,8 +41,17 @@ export class SqlPlantRespository implements PlantRepository {
       return [null, "Ha ocurrido un error en tu petición"];
     }
   }
-  async list(): Promise<[Plant[], string]> {
-    throw new Error("Method not implemented.");
+  async list(pk: string): Promise<[Plant[] | null, string]> {
+    try {
+      const response = await this.plantModel.findAll({
+        where: { station_id: pk },
+      });
+      return [response, "Consulta exitosa"];
+    } catch (error) {
+      console.log("Ha ocurrido un error durante la petición.");
+      console.error(error);
+      return [null, "Ha ocurrido un error durante petición"];
+    }
   }
   async getByPk(pk: string): Promise<[Plant | null | undefined, string]> {
     throw new Error("Method not implemented.");

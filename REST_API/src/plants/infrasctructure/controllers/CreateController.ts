@@ -19,7 +19,7 @@ export default class CreateController{
             })
         }
 
-        return res.status(500).json({
+        return res.status(201).json({
             msg: response[1],
             data: response[0]
         })
