@@ -17,6 +17,28 @@ services:
     ports:
       - "3030:3030"
 
+  web_socket:
+      build:
+        context: ./WebSocketServer
+        dockerfile: Dockerfile
+      environment:
+        - NODE_ENV=production
+      env_file: ./WebSocketServer/.env
+      networks:
+        - exposed
+      ports:
+        - "5555:5555"
+
+  record_service:
+      build:
+        context: ./RecordRegisterService
+        dockerfile: Dockerfile
+      environment:
+        - NODE_ENV=production
+      env_file: ./RecordRegisterService/.env
+      networks:
+        - exposed
+
   # faker:
   #   build:
   #     context: ./faker

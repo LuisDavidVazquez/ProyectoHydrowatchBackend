@@ -46,11 +46,15 @@ client.on('connect', () => {
         console.log("Intentado envíar mensaje al tema: " + topic)
 
         const request = {
-            device: deviceID,
+            user: {
+                email: "user",
+                password: "pass",
+                device: deviceID,
+            },
+            humedad: parseFloat(randomFrom(humidity_range)),
             temperature: parseFloat(randomFrom(temperature_range)),
-            ph: parseFloat(randomFrom(ph_range)),
-            humidity: parseFloat(randomFrom(humidity_range)),
-            water_level: parseFloat(randomFrom(water_range)),
+            level_water: parseFloat(randomFrom(water_range)),
+            nivel_ph: parseFloat(randomFrom(ph_range)),
         }
 
         client.publish(topic, JSON.stringify(request), { qos: 0, retain: false }, (error) => {

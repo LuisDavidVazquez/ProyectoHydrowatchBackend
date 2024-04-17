@@ -4,6 +4,7 @@ import cors from "cors";
 import stationRoutes from "./stations/infrastructure/router";
 import plantsRoutes from "./plants/infrasctructure/router";
 import userRoutes from "./users/infrasctructure/router";
+import recordRoutes from "./records/infrastructure/router";
 
 console.clear();
 console.log("Iniciando aplicación...");
@@ -26,6 +27,7 @@ app.use(express.json({ limit: "100mb" }));
 app.use("/stations", stationRoutes);
 app.use("/plants", plantsRoutes);
 app.use("/users", userRoutes);
+app.use("/records", recordRoutes);
 
 app.listen(APP_PORT, () => {
   console.info(`Servidor listo y escuchando en: http://127.0.0.1:${APP_PORT}/`);

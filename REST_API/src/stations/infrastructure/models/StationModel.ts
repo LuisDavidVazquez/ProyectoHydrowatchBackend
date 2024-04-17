@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import Station from "../../domain/Station";
-import sequelize_connection from "../../../database/connection";
+import sequelize_connection from "../../../database/mariaDBConnection";
 
 class StationModel extends Model<Station> implements Station {
   id!: string;
