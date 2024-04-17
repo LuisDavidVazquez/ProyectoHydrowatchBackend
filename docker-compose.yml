@@ -39,6 +39,13 @@ services:
       networks:
         - exposed
 
+  web-app:
+    build:
+      context: ./UI-HidroWatch
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+
   # faker:
   #   build:
   #     context: ./faker
