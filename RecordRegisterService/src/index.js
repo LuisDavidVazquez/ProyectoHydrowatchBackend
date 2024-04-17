@@ -32,6 +32,7 @@ const handleMessage = async (msg) => {
         temperature: messageParsed.temperature,
         level_water: messageParsed.level_water,
         nivel_ph: messageParsed.nivel_ph,
+        station: messageParsed.user.device
       });
       await log.save();
       console.log(`Message sent to notify queue: ${message}`);
