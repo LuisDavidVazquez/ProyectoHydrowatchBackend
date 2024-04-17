@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import User from "../../domain/User";
-import sequelize_connection from "../../../database/connection";
+import sequelize_connection from "../../../database/mariaDBConnection";
 
 class UserModel extends Model<User> implements User {
   id!: string;

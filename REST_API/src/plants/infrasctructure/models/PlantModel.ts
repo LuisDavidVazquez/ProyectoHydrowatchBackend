@@ -1,6 +1,6 @@
 import { DataTypes, Model, NOW } from "sequelize";
 import Plant from "../../domain/Plant";
-import sequelize_connection from "../../../database/connection";
+import sequelize_connection from "../../../database/mariaDBConnection";
 
 class PlantModel extends Model<Plant> implements Plant {
   id!: string;
