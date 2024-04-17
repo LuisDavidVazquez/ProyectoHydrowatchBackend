@@ -30,6 +30,29 @@ export default class MongoRecordRepository implements RecordRepository {
     }
   }
   async getByPk(pk: string): Promise<[Record | null | undefined, string]> {
+    try {
+      await this.connection()
+      const result = await this.model.findById(pk);
+      if (result === null) {
+        return [
+          undefined,
+          "No se halló ningún registro con el ID proporcionado.",
+        ];
+      }
+      const response: Record = {
+        humedad: result.humedad!,
+        temperature: result.temperature!,
+        level_water: result.level_water!,
+        nivel_ph: result.nivel_ph!,
+        station: result.station!,
+      };
+
+      return [response, "Consulta exitosa."];
+    } catch (error) {
+      console.log("Ha ocurrido un error durante la petición.");
+      console.error(error);
+      return [null, "Ha ocurrido un error durante la petición."];
+    }
     throw new Error("Method not implemented.");
   }
 }
