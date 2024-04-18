@@ -4,17 +4,18 @@
 #include <ArduinoJson.h>
 #include "DHTesp.h"
 
+
 //Datos del usuario
-const char *email = "user";
-const char *password = "12345678";
-const char *id_estacion = "1kj3bhbhabsdhasduahsd8as8dasjdad";
+const char *email = "My Station";
+const char *password = "guest";
+const char *id_estacion = "847d0573-12c0-4eb9-87b3-8e5dda49ee97";
 
 //Datos de conexion Wifi
 const char *ssid = "";
 const char *pass = "";
 
 //Datos de conexion mqtt
-char *server = "";
+char *server = "3.94.0.20";
 const int mqttPort = 1883;
 char *subscribeTopic = "";
 char *publishTopic = "esp32.mqtt";
@@ -31,9 +32,12 @@ int pinDHT = 13;
 DHTesp dht;
 int humedad = 0;
 int temperatura = 0;
-
+0
 //Datos sensor ph
-int ph = 7;
+const int pinPH = 34;
+float slope = 14.0 / 3.3;
+float intercept = 0.0;
+int ph = 0;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -83,9 +87,6 @@ void connectionMQTT() {
 //Sensor dht
 void sensordht() {
   TempAndHumidity data = dht.getTempAndHumidity();
-  // Serial.println("Temperatura: " + String(data.temperature, 2) + "°C");
-  // Serial.println("Humedad: " + String(data.humidity, 1) + "%");
-  // Serial.println("------------------");
   humedad = data.humidity;
   temperatura = data.temperature;
 
@@ -100,6 +101,13 @@ void levelWater() {
   digitalWrite(sensorPower, LOW);
 }
 
+
+//Sensor pH
+void sensorPH() {
+  float value = analogRead(pinPH);
+  float voltage = value / 4095.0 * 3.3; 
+  ph = slope * voltage + intercept; 
+}
 
 //Enviar mensaje
 void sendMessage() {
@@ -132,6 +140,7 @@ void setup() {
 
   dht.setup(pinDHT, DHTesp::DHT11);
   pinMode(sensorPower, OUTPUT);
+  pinMode(pinPH, INPUT);
   digitalWrite(sensorPower, LOW);
   
   connectionWIFI();
@@ -141,7 +150,8 @@ void setup() {
 void loop() {
   levelWater();
   sensordht();
+  sensorPH();
   sendMessage();
   client.loop();
-  delay(20000);
+  delay(5000);
 }
