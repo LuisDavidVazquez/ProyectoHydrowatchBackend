@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  authMiddleware,
   createController,
   getByPkController,
   listController,
@@ -8,11 +9,23 @@ import {
 
 const stationRoutes = Router();
 
-stationRoutes.get("/", listController.run.bind(listController));
-stationRoutes.get("/:id", getByPkController.run.bind(getByPkController));
+stationRoutes.get(
+  "/",
+  authMiddleware.run.bind(authMiddleware),
+  listController.run.bind(listController)
+);
+stationRoutes.get(
+  "/:id",
+  authMiddleware.run.bind(authMiddleware),
+  getByPkController.run.bind(getByPkController)
+);
 
 stationRoutes.post("/", createController.run.bind(createController));
 
-stationRoutes.put("/:id", updateController.run.bind(updateController));
+stationRoutes.put(
+  "/:id",
+  authMiddleware.run.bind(authMiddleware),
+  updateController.run.bind(updateController)
+);
 
 export default stationRoutes;
