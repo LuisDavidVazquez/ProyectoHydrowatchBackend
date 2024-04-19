@@ -6,10 +6,12 @@ import CreateController from "./controllers/CreateController";
 import GetByPkController from "./controllers/GetByPkController";
 import ListController from "./controllers/ListController";
 import UpdateController from "./controllers/UpdateController";
+import Auth from "./middlewares/Auth";
 import StationModel from "./models/StationModel";
 import UserModel from "./models/UserModel";
 import SqlStationRepository from "./repositories/SqlStationRepository";
 import EncryptService from "./services/EncryptService";
+import TokenService from "./services/TokenService";
 import UUIDService from "./services/UUIDService";
 
 /* REPOSITORIES */
@@ -21,6 +23,10 @@ export const stationRepository = new SqlStationRepository(
 /* SERVICES */
 export const uuidService = new UUIDService();
 export const encryptService = new EncryptService();
+export const tokenService = new TokenService();
+
+/* MIDDLEWARE */
+export const authMiddleware = new Auth(tokenService);
 
 /* USES CASES */
 export const createUseCase = new CreateUseCase(

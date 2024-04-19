@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   accessController,
   authController,
+  authMiddleware,
   getByPkController,
   listController,
   updateController,
@@ -13,8 +14,12 @@ userRoutes.post("/access", accessController.run.bind(accessController));
 userRoutes.post("/auth/:token", authController.run.bind(authController));
 
 userRoutes.get("/", listController.run.bind(listController));
-userRoutes.get("/:id", getByPkController.run.bind(getByPkController));
+userRoutes.get(
+  "/:id",
+  authMiddleware.run.bind(authMiddleware),
+  getByPkController.run.bind(getByPkController)
+);
 
-userRoutes.put("/:id", updateController.run.bind(updateController));
+userRoutes.put("/:id",authMiddleware.run.bind(authMiddleware), updateController.run.bind(updateController));
 
 export default userRoutes;
